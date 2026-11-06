@@ -20,87 +20,87 @@ Transform the data into features (document choices and tradeoffs), simulate the 
 
 ### assesment.csv 
 * `code_module` {PPK} // partial FK to courses
-- Identification code of the module, to which the assessment belongs.
-- CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * Identification code of the module, to which the assessment belongs.
+  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 * `code_presentation` {PPK} // partial FK to courses
-- Identification code of the presentation, to which the assessment belongs.
-- CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
+   * Identification code of the presentation, to which the assessment belongs.
+   * CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
 * `id_assessment` {PK}
-- Identification number of the assessment.
-- INT, from 1752 to 40088
+   * Identification number of the assessment.
+   * INT, from 1752 to 40088
 * `assessment_type`
-- Type of assessment. Three types of assessments exist: Tutor Marked Assessment (TMA), Computer Marked Assessment (CMA) and Final Exam (Exam).
-- VARCHAR(4), categorical with levels 'TMA', 'CMA', 'Exam'
+   * Type of assessment. Three types of assessments exist: Tutor Marked Assessment (TMA), Computer Marked Assessment (CMA) and Final Exam (Exam).
+   * VARCHAR(4), categorical with levels 'TMA', 'CMA', 'Exam'
 * `date`
-- Information about the final submission date of the assessment calculated as the number of days since the start of the module-presentation. The starting date of the presentation has number 0 (zero).
-- INT, from 12 to 261
+   * Information about the final submission date of the assessment calculated as the number of days since the start of the module-presentation. The starting date of the presentation has number 0 (zero).
+  * INT, from 12 to 261
 * `weight`
-- Weight of the assessment in %. Typically, Exams are treated separately and have the weight 100%; the sum of all other assessments is 100%.
-- INT, 0 to 100
+  * Weight of the assessment in %. Typically, Exams are treated separately and have the weight 100%; the sum of all other assessments is 100%.
+  * INT, 0 to 100
 
 ### courses.csv 
 * `code_module` {PPK}
-- code name of the module (known as unit code in many universities), which serves as the identifier.
-- CHAR(3), categorical with levels 'BBB', 'DDD', 'EEE', 'FFF', 'GGG'
+  * code name of the module (known as unit code in many universities), which serves as the identifier.
+  * CHAR(3), categorical with levels 'BBB', 'DDD', 'EEE', 'FFF', 'GGG'
 * `code_presentation` {PPK}
-- Code name of the presentation. It consists of the year and “B” for the presentation starting in February (Corresponds to Semester2) and “J” for the presentation starting in October(Corresponds to Semester1).
-- CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
+  * Code name of the presentation. It consists of the year and “B” for the presentation starting in February (Corresponds to Semester2) and “J” for the presentation starting in October(Corresponds to Semester1).
+  * CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
 * `module_presentation_length`
-- Length of the module-presentation in days.
-- INT, from 234 to 269
+  * Length of the module-presentation in days.
+  * INT, from 234 to 269
 
 ### studentAssesment.csv 
 * `id_assessment` {PPK} // FK to assessment
-- Identification number of the assessment.
-- INT, from 1752 to 37443
+  * Identification number of the assessment.
+  * INT, from 1752 to 37443
 * `id_student` {PPK}
-- A unique identification number for the student.
-- INT, from 6516 to 2698588
+  * A unique identification number for the student.
+  * INT, from 6516 to 2698588
 * `date_submitted`
-- The date of student submission, measured as the number of days since the start of the module presentation.
-- INT, from -11 to 608
+  * The date of student submission, measured as the number of days since the start of the module presentation.
+  * INT, from -11 to 608
 * `is_banked`
-- A status flag indicating that the assessment result has been transferred from a previous presentation.
-- INT, (0,1) standing in for true false
+  * A status flag indicating that the assessment result has been transferred from a previous presentation.
+  * INT, (0,1) standing in for true false
 * `score`
-- The student’s score in this assessment. The range is from 0 to 100. The score lower than 40 is interpreted as Fail. The marks are in the range from 0 to 100.
-- INT, from 0 to 100
+  * The student’s score in this assessment. The range is from 0 to 100. The score lower than 40 is interpreted as Fail. The marks are in the range from 0 to 100.
+  * INT, from 0 to 100
 
 ### studentInfo.csv 
 * `code_module` {PPK} // partial FK to courses
-- Identification code of the module, to which the assessment belongs.
-- CHAR(3), categorical with levels 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * Identification code of the module, to which the assessment belongs.
+  * CHAR(3), categorical with levels 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 * `code_presentation` {PPK} // partial FK to courses
-- Identification code of the presentation, to which the assessment belongs.
-- CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
+  * Identification code of the presentation, to which the assessment belongs.
+  * CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
 * `id_student` {PPK}
-- A unique identification number for the student.
-- INT, from 3733 to 2716795
+  * A unique identification number for the student.
+  * INT, from 3733 to 2716795
 * `gender` 
-- The student’s gender.
-- CHAR(1), categorical with levels 'M', 'F'
+  * The student’s gender.
+  * CHAR(1), categorical with levels 'M', 'F'
 * `region` 
-- Identifies the geographic region, where the student lived while taking the module-presentation.
-- VARCHAR(45), categorical with levels 'Scotland', 'East Anglian Region', 'London Region', 'South Region', 'North Western Region'
+  * Identifies the geographic region, where the student lived while taking the module  *presentation.
+  * VARCHAR(45), categorical with levels 'Scotland', 'East Anglian Region', 'London Region', 'South Region', 'North Western Region'
 * `highest_education` 
-- Highest student education level on entry to the module presentation.
-- VARCHAR(45), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * Highest student education level on entry to the module presentation.
+  * VARCHAR(45), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 * `imd_band` 
-- Specifies the Index of Multiple Depravation band of the place where the student lived during the module-presentation.
-- CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * Specifies the Index of Multiple Depravation band of the place where the student lived during the module  *presentation.
+  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 * `c` 
-- I.
-- CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * I.
+  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 * `c` 
-- I.
-- CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * I.
+  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 * `c` 
-- I.
-- CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * I.
+  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 * `c` 
-- I.
-- CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * I.
+  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 * `c` 
-- I.
-- CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+  * I.
+  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
 
