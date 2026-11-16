@@ -18,89 +18,131 @@ Transform the data into features (document choices and tradeoffs), simulate the 
 ## Data Structure - taken/modified from the OULAD dataset website
 <img width="1410" height="1330" alt="image" src="https://github.com/user-attachments/assets/1ff42445-bd58-4b7c-975d-5fb3b5c3b86f" />
 
-### assesment.csv 
-* `code_module` {PPK} // partial FK to courses
-  * Identification code of the module, to which the assessment belongs.
-  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
-* `code_presentation` {PPK} // partial FK to courses
-   * Identification code of the presentation, to which the assessment belongs.
-   * CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
-* `id_assessment` {PK}
-   * Identification number of the assessment.
-   * INT, from 1752 to 40088
-* `assessment_type`
-   * Type of assessment. Three types of assessments exist: Tutor Marked Assessment (TMA), Computer Marked Assessment (CMA) and Final Exam (Exam).
-   * VARCHAR(4), categorical with levels 'TMA', 'CMA', 'Exam'
-* `date`
-   * Information about the final submission date of the assessment calculated as the number of days since the start of the module-presentation. The starting date of the presentation has number 0 (zero).
-  * INT, from 12 to 261
-* `weight`
-  * Weight of the assessment in %. Typically, Exams are treated separately and have the weight 100%; the sum of all other assessments is 100%.
-  * INT, 0 to 100
+```
+Assesments
+    code_module code_presentation  id_assessment assessment_type   date  weight
+0           AAA             2013J           1752             TMA   19.0    10.0
+1           AAA             2013J           1753             TMA   54.0    20.0
+2           AAA             2013J           1754             TMA  117.0    20.0
+3           AAA             2013J           1755             TMA  166.0    20.0
+4           AAA             2013J           1756             TMA  215.0    30.0
+..          ...               ...            ...             ...    ...     ...
+201         GGG             2014J          37443             CMA  229.0     0.0
+202         GGG             2014J          37435             TMA   61.0     0.0
+203         GGG             2014J          37436             TMA  124.0     0.0
+204         GGG             2014J          37437             TMA  173.0     0.0
+205         GGG             2014J          37444            Exam  229.0   100.0
 
-### courses.csv 
-* `code_module` {PPK}
-  * code name of the module (known as unit code in many universities), which serves as the identifier.
-  * CHAR(3), categorical with levels 'BBB', 'DDD', 'EEE', 'FFF', 'GGG'
-* `code_presentation` {PPK}
-  * Code name of the presentation. It consists of the year and “B” for the presentation starting in February (Corresponds to Semester2) and “J” for the presentation starting in October(Corresponds to Semester1).
-  * CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
-* `module_presentation_length`
-  * Length of the module-presentation in days.
-  * INT, from 234 to 269
+[206 rows x 6 columns]
 
-### studentAssesment.csv 
-* `id_assessment` {PPK} // FK to assessment
-  * Identification number of the assessment.
-  * INT, from 1752 to 37443
-* `id_student` {PPK}
-  * A unique identification number for the student.
-  * INT, from 6516 to 2698588
-* `date_submitted`
-  * The date of student submission, measured as the number of days since the start of the module presentation.
-  * INT, from -11 to 608
-* `is_banked`
-  * A status flag indicating that the assessment result has been transferred from a previous presentation.
-  * INT, (0,1) standing in for true false
-* `score`
-  * The student’s score in this assessment. The range is from 0 to 100. The score lower than 40 is interpreted as Fail. The marks are in the range from 0 to 100.
-  * INT, from 0 to 100
 
-### studentInfo.csv 
-* `code_module` {PPK} // partial FK to courses
-  * Identification code of the module, to which the assessment belongs.
-  * CHAR(3), categorical with levels 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
-* `code_presentation` {PPK} // partial FK to courses
-  * Identification code of the presentation, to which the assessment belongs.
-  * CHAR(5), categorical with levels '2013B', '2013J', '2014B', '2014J'
-* `id_student` {PPK}
-  * A unique identification number for the student.
-  * INT, from 3733 to 2716795
-* `gender` 
-  * The student’s gender.
-  * CHAR(1), categorical with levels 'M', 'F'
-* `region` 
-  * Identifies the geographic region, where the student lived while taking the module  *presentation.
-  * VARCHAR(45), categorical with levels 'Scotland', 'East Anglian Region', 'London Region', 'South Region', 'North Western Region'
-* `highest_education` 
-  * Highest student education level on entry to the module presentation.
-  * VARCHAR(45), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
-* `imd_band` 
-  * Specifies the Index of Multiple Depravation band of the place where the student lived during the module  *presentation.
-  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
-* `c` 
-  * I.
-  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
-* `c` 
-  * I.
-  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
-* `c` 
-  * I.
-  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
-* `c` 
-  * I.
-  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
-* `c` 
-  * I.
-  * CHAR(3), categorical with levels 'AAA', 'BBB', 'CCC', 'DDD', 'EEE', 'FFF', 'GGG'
+Courses
+   code_module code_presentation  module_presentation_length
+0          AAA             2013J                         268
+1          AAA             2014J                         269
+2          BBB             2013J                         268
+3          BBB             2014J                         262
+4          BBB             2013B                         240
+5          BBB             2014B                         234
+6          CCC             2014J                         269
+7          CCC             2014B                         241
+8          DDD             2013J                         261
+9          DDD             2014J                         262
+10         DDD             2013B                         240
+11         DDD             2014B                         241
+12         EEE             2013J                         268
+13         EEE             2014J                         269
+14         EEE             2014B                         241
+15         FFF             2013J                         268
+16         FFF             2014J                         269
+17         FFF             2013B                         240
+18         FFF             2014B                         241
+19         GGG             2013J                         261
+20         GGG             2014J                         269
+21         GGG             2014B                         241
 
+
+studentAssessment
+        id_assessment  id_student  date_submitted  is_banked  score
+0                1752       11391              18          0   78.0
+1                1752       28400              22          0   70.0
+2                1752       31604              17          0   72.0
+3                1752       32885              26          0   69.0
+4                1752       38053              19          0   79.0
+...               ...         ...             ...        ...    ...
+173907          37443      527538             227          0   60.0
+173908          37443      534672             229          0  100.0
+173909          37443      546286             215          0   80.0
+173910          37443      546724             230          0  100.0
+173911          37443      558486             224          0   80.0
+
+[173912 rows x 5 columns]
+
+
+StudentInfo
+      code_module code_presentation  ... disability final_result
+0             AAA             2013J  ...          N         Pass
+1             AAA             2013J  ...          N         Pass
+2             AAA             2013J  ...          Y    Withdrawn
+3             AAA             2013J  ...          N         Pass
+4             AAA             2013J  ...          N         Pass
+...           ...               ...  ...        ...          ...
+32588         GGG             2014J  ...          N         Fail
+32589         GGG             2014J  ...          N  Distinction
+32590         GGG             2014J  ...          Y         Pass
+32591         GGG             2014J  ...          N    Withdrawn
+32592         GGG             2014J  ...          N  Distinction
+
+[32593 rows x 12 columns]
+
+
+StudentRegistration
+      code_module  ...  date_unregistration
+0             AAA  ...                  NaN
+1             AAA  ...                  NaN
+2             AAA  ...                 12.0
+3             AAA  ...                  NaN
+4             AAA  ...                  NaN
+...           ...  ...                  ...
+32588         GGG  ...                  NaN
+32589         GGG  ...                  NaN
+32590         GGG  ...                  NaN
+32591         GGG  ...                101.0
+32592         GGG  ...                  NaN
+
+[32593 rows x 5 columns]
+
+
+StudentVle
+         code_module code_presentation  id_student  id_site  date  sum_click
+0                AAA             2013J       28400   546652   -10          4
+1                AAA             2013J       28400   546652   -10          1
+2                AAA             2013J       28400   546652   -10          1
+3                AAA             2013J       28400   546614   -10         11
+4                AAA             2013J       28400   546714   -10          1
+...              ...               ...         ...      ...   ...        ...
+10655275         GGG             2014J      675811   896943   269          3
+10655276         GGG             2014J      675578   896943   269          1
+10655277         GGG             2014J      654064   896943   269          3
+10655278         GGG             2014J      654064   896939   269          1
+10655279         GGG             2014J      654064   896939   269          1
+
+[10655280 rows x 6 columns]
+
+
+Vle
+      id_site code_module code_presentation activity_type  week_from  week_to
+0      546943         AAA             2013J      resource        NaN      NaN
+1      546712         AAA             2013J     oucontent        NaN      NaN
+2      546998         AAA             2013J      resource        NaN      NaN
+3      546888         AAA             2013J           url        NaN      NaN
+4      547035         AAA             2013J      resource        NaN      NaN
+...       ...         ...               ...           ...        ...      ...
+6359   897063         GGG             2014J      resource        NaN      NaN
+6360   897109         GGG             2014J      resource        NaN      NaN
+6361   896965         GGG             2014J     oucontent        NaN      NaN
+6362   897060         GGG             2014J      resource        NaN      NaN
+6363   897100         GGG             2014J      resource        NaN      NaN
+
+[6364 rows x 6 columns]
+```
